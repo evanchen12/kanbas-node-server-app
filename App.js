@@ -9,8 +9,8 @@ import CourseRoutes from "./Kanbas/Courses/routes.js";
 import ModuleRoutes from './Kanbas/Modules/routes.js';
 import UserRoutes from "./Users/routes.js";
 
-mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
 const app = express();
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas';
 const sessionOptions = {
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -24,6 +24,7 @@ if (process.env.NODE_ENV !== "development") {
     secure: true,
   };
 }
+mongoose.connect(CONNECTION_STRING);
 
 app.use(express.json());
 app.use(session(sessionOptions));
